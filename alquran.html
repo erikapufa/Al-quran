@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Al-Qur'an Online</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font untuk teks Arab -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+  </head>
+  <body>
+ <!-- Header Utama -->
+    <div class="header">Al-Qur'an dan Terjemahannya</div>
+
+    <div class="main-container">
+      <!-- Tampilan Daftar Surah -->
+      <div id="surah-view">
+        <h2>DAFTAR SURAH</h2>
+        <div id="bookmark-buttons">
+          <button id="globalBookmarkFrontBtn" disabled>No Bookmark</button>
+          <!-- Tombol Daftar Surah Favorit -->
+          <button id="favoriteSurahListBtn" onclick="showFavoriteSurah()">
+            Surah Favorit
+          </button>
+        </div>
+
+        <div class="search-wrapper">
+          <input
+            type="text"
+            id="searchSurah"
+            class="search-input"
+            placeholder="Cari surah..."
+            onkeyup="filterSurah()"
+          />
+        </div>
+        <div id="surah-list"></div>
+        <div id="loading" class="loading">Memuat daftar surah...</div>
+        <div id="error" class="error" style="display: none">
+          Gagal memuat data surah.
+        </div>
+      </div>
+
+      <!-- Tampilan Detail Surah -->
+      <div id="surah-detail">
+        <div id="navigation-container">
+          <button id="back-button" onclick="showSurahList()">
+            Kembali ke Daftar Surah
+          </button>
+          <div id="navigation-buttons">
+            <button id="prevSurahBtn">Surah Sebelumnya</button>
+            <button id="nextSurahBtn">Surah Berikutnya</button>
+            <button id="goToBookmarkBtn" disabled>No Bookmark</button>
+          </div>
+        </div>
+        <div id="ayah-container"></div>
+        <div id="loading-ayah" class="loading" style="display: none">
+          Memuat ayat...
+        </div>
+        <div id="error-ayah" class="error" style="display: none">
+          Gagal memuat ayat dalam surah ini.
+        </div>
+      </div>
+    </div>
+    <script src="script.js">
+    </script>
+  </body>
+</html>

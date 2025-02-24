@@ -1,0 +1,487 @@
+:root {
+        --bg-body: #f4f4f4;
+        --header-bg: #4a628a;
+        --header-border: #e5e1da;
+        --surah-text: #4a628a;
+        --surah-hover-bg: #e5e1da;
+        --scroll-thumb: #504b38;
+        --ayah-bg: #f1f0e8;
+        --ayat-text: #504b38;
+        --terjemahan-text: #555;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: var(--bg-body);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-y: auto;
+      }
+      /* Header Utama */
+      .header {
+        background: linear-gradient(90deg, #4a628a, #6b7fa0);
+        color: white;
+        text-align: center;
+        padding: 18px;
+        font-size: 18px;
+        font-weight: bold;
+        flex-shrink: 0;
+        width: 100%;
+        border-bottom: 3px solid var(--header-border);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+      }
+      .header:hover {
+        filter: brightness(1.05);
+      }
+      /* Tombol Global Bookmark */
+      #bookmark-buttons {
+        margin: 10px;
+      }
+      #bookmark-buttons button {
+        padding: 8px 12px;
+        font-size: 14px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      /* Dropdown (ellipses) */
+      .ellipsis-menu {
+        position: relative;
+      }
+      .ellipsis-button {
+        background: none;
+        border: none;
+        color: #3a4e72;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      .ellipsis-dropdown {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 30px;
+        min-width: 140px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        z-index: 999;
+      }
+      .ellipsis-dropdown .dropdown-item {
+        background: none;
+        border: none;
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 8px 12px;
+        font-size: 14px;
+        cursor: pointer;
+        color: #333;
+        transition: background 0.2s;
+      }
+      .ellipsis-dropdown .dropdown-item:hover {
+        background: #f5f5f5;
+      }
+      /* Wrapper untuk search input dan ellipses */
+      .search-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .search-input {
+        flex: 1;
+        padding: 8px;
+        font-size: 15px;
+        border: 1px solid var(--surah-text);
+        border-radius: 4px;
+        background-color: white;
+        color: black;
+        transition: border-color 0.3s;
+      }
+      .search-input:focus {
+        outline: none;
+        border-color: var(--surah-text);
+      }
+      .favorite-surah-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.5em;
+        color: #727d73;
+        transition: color 0.3s, transform 0.2s;
+        margin-left: auto;
+        display: flex;
+      }
+      .favorite-surah-btn:hover {
+        color: gold;
+        transform: scale(1.2);
+      }
+      /* Container utama */
+      .main-container {
+        display: grid;
+        grid-template-columns: 100%;
+        gap: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        animation: fadeIn 1s ease-out;
+        width: 70%;
+        margin: 20px 0;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      @media (max-width: 600px) {
+        #surah-list {
+          grid-template-columns: 1fr;
+        }
+        .main-container {
+          width: 95%;
+          padding: 10px;
+        }
+        .header {
+          font-size: 16px;
+          padding: 12px;
+        }
+      }
+      /* Tampilan daftar surah */
+      #surah-view {
+        background-color: white;
+        padding: 10px;
+        border-radius: 6px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        overflow-y: auto;
+        transition: transform 0.3s;
+      }
+      #surah-view:hover {
+        transform: translateY(-3px);
+      }
+      .surah-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 15px;
+        border-bottom: 2px solid #ddd;
+        margin-bottom: 10px;
+        animation: fadeIn 0.8s ease-out;
+      }
+      .surahName {
+        flex-grow: 1;
+        font-size: 28px;
+        font-weight: bold;
+        color: var(--surah-text);
+        margin: 0;
+      }
+      .surahIndo {
+        font-size: 14px;
+        color: var(--terjemahan-text);
+        display: block;
+        margin-top: 5px;
+      }
+      h2 {
+        color: var(--surah-text);
+        text-align: center;
+        border-bottom: 2px solid #d9dfc6;
+        padding-bottom: 4px;
+        animation: fadeIn 0.8s ease-out;
+      }
+     #surah-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.card {
+  background-color: white;
+  color: var(--surah-text);
+  padding: 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  margin-bottom: 6px;
+}
+
+.card:hover {
+  background-color: var(--surah-hover-bg);
+  transform: scale(1.02);
+}
+
+.card-icon {
+  background-color: var(--surah-text);
+  color: white;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  transition: transform 0.3s;
+}
+
+.card-icon:hover {
+  transform: scale(1.1);
+}
+
+.card-content {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.jumlahAyat {
+  font-size: 14px;
+  color: var(--terjemahan-text);
+}
+
+/* Tampilan detail surah */
+#surah-detail {
+  background-color: white;
+  padding: 10px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  animation: fadeIn 1s ease-out;
+  display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  /* Ubah grid ke satu kolom pada layar kecil */
+  #surah-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* Jika diperlukan, atur ulang layout pada setiap kartu */
+  .card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .card-content {
+    margin-left: 0;
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  /* Penyesuaian ukuran teks */
+  .card-header h2 {
+    font-size: 18px;
+  }
+  
+  .jumlahAyat {
+    font-size: 13px;
+  }
+}
+      #globalBookmarkFrontBtn {
+        background-color: var(--header-bg);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        /* Hapus margin-bottom agar tidak terpisah dari baris */
+        margin: 0;
+      }
+
+      #globalBookmarkFrontBtn:hover {
+        filter: brightness(1.1);
+      }
+
+      #favoriteSurahListBtn {
+        background-color: var(--header-bg);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        /* Hapus margin-bottom agar tidak terpisah dari baris */
+        margin: 0;
+      }
+
+      #favoriteSurahListBtn:hover {
+        filter: brightness(1.1);
+      }
+
+      /* Container pembungkus agar tombol sejajar secara horizontal */
+      #navigation-container {
+        display: flex;
+        justify-content: center; /* Atur tombol agar berada di tengah, atau gunakan space-between untuk menyebar */
+        align-items: center;
+        gap: 20px; /* Jarak antar kelompok tombol */
+        margin: 10px 0;
+      }
+
+      /* Tombol Back */
+      #back-button {
+        background-color: var(--header-bg);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0; /* Hapus margin-bottom agar tidak terpisah dari baris */
+      }
+
+      #back-button:hover {
+        filter: brightness(1.1);
+      }
+
+      /* Container Tombol Navigasi (prev, next, bookmark) */
+      #navigation-buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px; /* Jarak antar tombol */
+      }
+
+      /* Tombol Navigasi */
+      #navigation-buttons button {
+        padding: 8px 12px;
+        font-size: 14px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: var(--header-bg);
+        color: white;
+      }
+
+      /* Responsive styles */
+      @media (max-width: 600px) {
+        /* Pada layar kecil, stack tombol secara vertikal */
+        #navigation-container {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        #navigation-buttons {
+          flex-direction: column;
+          gap: 8px;
+          width: 100%;
+        }
+
+        /* Buat tombol mengisi lebar container */
+        #navigation-buttons button,
+        #back-button {
+          width: 100%;
+          padding: 10px 0;
+          font-size: 16px;
+        }
+      }
+
+      /* === Perbaikan Tampilan Ayat === */
+      #ayah-container .ayat {
+        background: var(--ayah-bg);
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+        overflow: hidden;
+      }
+      #ayah-container .ayat:hover {
+        transform: scale(1.02);
+      }
+      #ayah-container .ayat .arabic {
+        font-family: "Amiri", serif;
+        padding: 14px; /* Memberikan jarak agar teks tidak menempel ke tepi atas card */
+        font-size: 32px;
+        text-align: right;
+        margin: 0;
+        line-height: 1.4;
+      }
+
+      .arabic-number-badge {
+        color: black;
+        border: 1px solid black; /* Menentukan lebar, gaya, dan warna border */
+        background-color: transparent; /* Gunakan transparent jika tidak ingin ada background */
+        padding: 4px 8px;
+        border-radius: 50%;
+        font-size: 10px;
+        margin-left: 10px;
+      }
+
+      /* Teks Latin (transliterasi) */
+      #ayah-container .ayat {
+        font-size: 18px;
+        color: #555;
+        text-align: left;
+        margin-top: 12px;
+      }
+
+      .teksLatin {
+        font-size: 18px;
+        color: #4a628a;
+        text-align: left;
+        margin-top: 10px;
+        font-style: italic;
+      }
+      /* Terjemahan Indonesia */
+      #ayah-container .ayat p:not(.arabic):not(.teksLatin) {
+        font-size: 18px;
+        color: #333;
+        text-align: left;
+        margin-top: 10px;
+      }
+      /* Tombol aksi di ayat */
+      .icons button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        border: none;
+        border-radius: 5px;
+        min-width: 80px;
+        padding: 10px 15px;
+        font-size: 16px;
+        transition: background-color 0.3s, transform 0.3s;
+        background: none;
+        color: var(--surah-text);
+        cursor: pointer;
+      }
+      .icons button:hover {
+        transform: scale(1.05);
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      /* Tombol Play All Audio */
+      .play-all-btn {
+        margin: 10px 0;
+        padding: 8px 12px;
+        font-size: 14px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background-color: var(--header-bg);
+        color: white;
+        transition: background-color 0.3s;
+      }
+      .play-all-btn:hover {
+        background-color: #3a4e72;
+      }
